@@ -1,6 +1,7 @@
 package example
 
 import "fmt"
-func test() {
+
+func Test() {
 	fmt.Printf("hi,test")
 }
