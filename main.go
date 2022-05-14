@@ -22,5 +22,6 @@ func main() {
     fmt.Printf("test2")
     fmt.Printf("test3")
     fmt.Printf("test5")
+    fmt.Printf("dev") 
     s.ListenAndServe()
 }
