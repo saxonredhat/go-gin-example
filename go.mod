@@ -26,5 +26,5 @@ replace (
 	github.com/saxonredhat/go-gin-example/models => /home/gopath/src/github.com/saxonredhat/go-gin-example/models
 	github.com/saxonredhat/go-gin-example/pkg/setting => /home/gopath/src/github.com/saxonredhat/go-gin-example/pkg/setting
 	github.com/saxonredhat/go-gin-example/routers => /home/gopath/src/github.com/saxonredhat/go-gin-example/routers
-//	github.com/saxonredhat/go-gin-example/routers/v1 => /home/gopath/src/github.com/saxonredhat/go-gin-example/routers/v1
+//	github.com/saxonredhat/go-gin-example/routers/v2 => /home/gopath/src/github.com/saxonredhat/go-gin-example/routers/v2
 )

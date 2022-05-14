@@ -3,7 +3,7 @@ package routers
 import (
     "github.com/gin-gonic/gin"
     "github.com/saxonredhat/go-gin-example/pkg/setting"
-    "github.com/saxonredhat/go-gin-example/routers/v1"
+    "github.com/saxonredhat/go-gin-example/routers/v2"
 )
 
 func InitRouter() *gin.Engine {
@@ -15,16 +15,16 @@ func InitRouter() *gin.Engine {
 
     gin.SetMode(setting.RunMode)
 
-    apiv1 := r.Group("/api/v1")
+    apiv2 := r.Group("/api/v2")
     {
         //获取标签列表
-        apiv1.GET("/tags", v1.GetTags)
+        apiv2.GET("/tags", v2.GetTags)
         //新建标签
-        apiv1.POST("/tags", v1.AddTag)
+        apiv2.POST("/tags", v2.AddTag)
         //更新指定标签
-        apiv1.PUT("/tags/:id", v1.EditTag)
+        apiv2.PUT("/tags/:id", v2.EditTag)
         //删除指定标签
-        apiv1.DELETE("/tags/:id", v1.DeleteTag)
+        apiv2.DELETE("/tags/:id", v2.DeleteTag)
     }
 
 
