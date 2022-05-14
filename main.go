@@ -18,9 +18,10 @@ func main() {
         MaxHeaderBytes: 1 << 20,
     }
 
-
     fmt.Printf("main")
     fmt.Printf("main2")
     fmt.Printf("main3")
+    fmt.Printf("test")
+    fmt.Printf("test2")
     s.ListenAndServe()
 }
