@@ -18,5 +18,7 @@ func main() {
         MaxHeaderBytes: 1 << 20,
     }
 
+
+    fmt.Printf("main")
     s.ListenAndServe()
 }
