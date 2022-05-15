@@ -10,8 +10,9 @@ import (
 
 func main() {
     router := routers.InitRouter()
+    addr := fmt.Sprintf(":%d", setting.HTTPPort) 
     s := &http.Server{
-        Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+        Addr:           addr,
         Handler:        router,
         ReadTimeout:    setting.ReadTimeout,
         WriteTimeout:   setting.WriteTimeout,
@@ -27,5 +28,7 @@ func main() {
     fmt.Printf("main7")
     fmt.Printf("test")
     fmt.Printf("test2")
+    fmt.Printf(fmt.Sprintf("\nListen: %s ...\n", addr))
     s.ListenAndServe()
+    fmt.Printf("END\n")
 }

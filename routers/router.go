@@ -1,6 +1,7 @@
 package routers
 
 import (
+    "fmt"
     "github.com/gin-gonic/gin"
     "github.com/saxonredhat/go-gin-example/pkg/setting"
     "github.com/saxonredhat/go-gin-example/routers/v1"
@@ -34,5 +35,6 @@ func InitRouter() *gin.Engine {
         })
     })
 
+    fmt.Printf("\nfmt\n")
     return r
 }
