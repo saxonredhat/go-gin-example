@@ -10,14 +10,22 @@ import (
 
 func main() {
     router := routers.InitRouter()
+    addr := fmt.Sprintf(":%d", setting.HTTPPort) 
     s := &http.Server{
-        Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+        Addr:           addr,
         Handler:        router,
         ReadTimeout:    setting.ReadTimeout,
         WriteTimeout:   setting.WriteTimeout,
         MaxHeaderBytes: 1 << 20,
     }
 
+    fmt.Printf("main")
+    fmt.Printf("main2")
+    fmt.Printf("main3")
+    fmt.Printf("main4")
+    fmt.Printf("main5")
+    fmt.Printf("main6")
+    fmt.Printf("main7")
     fmt.Printf("test")
     fmt.Printf("test2")
     fmt.Printf("test3")
@@ -27,5 +35,7 @@ func main() {
     fmt.Printf("dev") 
     fmt.Printf("dev1") 
     fmt.Printf("dev2") 
+    fmt.Printf(fmt.Sprintf("\nListen: %s ...\n", addr))
     s.ListenAndServe()
+    fmt.Printf("END\n")
 }
