@@ -4,7 +4,9 @@ import (
     "fmt"
     "github.com/gin-gonic/gin"
     "github.com/saxonredhat/go-gin-example/pkg/setting"
+    "github.com/saxonredhat/go-gin-example/routers/api"
     "github.com/saxonredhat/go-gin-example/routers/v1"
+    "github.com/saxonredhat/go-gin-example/middleware/jwt"
 )
 
 func InitRouter() *gin.Engine {
@@ -16,7 +18,9 @@ func InitRouter() *gin.Engine {
 
     gin.SetMode(setting.RunMode)
 
+    r.GET("/auth", api.GetAuth)
     apiv1 := r.Group("/api/v1")
+    apiv1.Use(jwt.JWT())
     {
         //获取标签列表
         apiv1.GET("/tags", v1.GetTags)
@@ -26,7 +30,6 @@ func InitRouter() *gin.Engine {
         apiv1.PUT("/tags/:id", v1.EditTag)
         //删除指定标签
         apiv1.DELETE("/tags/:id", v1.DeleteTag)
-
         //获取文章列表
         apiv1.GET("/articles", v1.GetArticles)
         //新建文章
