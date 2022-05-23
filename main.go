@@ -4,7 +4,7 @@ import (
     "fmt"
     "log"
     "syscall"
-    //"net/http"
+    _ "net/http"
 
     "github.com/fvbock/endless"
     //"github.com/gin-gonic/gin"

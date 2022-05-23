@@ -16,7 +16,12 @@ import (
     "github.com/unknwon/com"
 )
 
-//获取多个文章标签
+// @Summary 获取文章列表 
+// @Produce  json
+// @Param name query string false "Name"
+// @Param state query int false "State"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/articles [get]
 func GetArticles(c *gin.Context) {
     name := c.Query("name")
 
@@ -45,7 +50,16 @@ func GetArticles(c *gin.Context) {
     })
 }
 
-//新增文章标签
+// @Summary 新增文章
+// @Produce  json
+// @Param tag_id query int true "TagID"
+// @Param created_by query string true "CreatedBy"
+// @Param title query string true "Title"
+// @Param desc query string false "Desc"
+// @Param content query string false "Content"
+// @Param state query int false "State"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/articles [post]
 func AddArticle(c *gin.Context) {
     //获取参数
     tagId := c.Query("tag_id")
@@ -117,7 +131,16 @@ func AddArticle(c *gin.Context) {
     })
 }
 
-//修改文章标签
+// @Summary 修改文章
+// @Produce  json
+// @Param modified_by query string true "ModifiedBy"
+// @Param tag_id query int false "TagID"
+// @Param title query string false "Title"
+// @Param desc query string false "Desc"
+// @Param content query string false "Content"
+// @Param state query int false "State"
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/articles/{id} [put]
 func EditArticle(c *gin.Context) {
     //获取参数
     id := com.StrTo(c.Param("id")).MustInt()
@@ -199,7 +222,10 @@ func EditArticle(c *gin.Context) {
     })
 }
 
-//删除文章标签
+// @Summary 删除文章
+// @Produce  json
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/articles/{id} [delete]
 func DeleteArticle(c *gin.Context) {
     //获取参数
     id := c.Param("id")
