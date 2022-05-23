@@ -2,33 +2,30 @@ package main
 
 import (
     "fmt"
-    "net/http"
+    "log"
+    "syscall"
+    //"net/http"
+
+    "github.com/fvbock/endless"
     //"github.com/gin-gonic/gin"
+
     "github.com/saxonredhat/go-gin-example/pkg/setting"
     "github.com/saxonredhat/go-gin-example/routers"
 )
 
 func main() {
-    router := routers.InitRouter()
-    addr := fmt.Sprintf(":%d", setting.HTTPPort) 
-    s := &http.Server{
-        Addr:           addr,
-        Handler:        router,
-        ReadTimeout:    setting.ReadTimeout,
-        WriteTimeout:   setting.WriteTimeout,
-        MaxHeaderBytes: 1 << 20,
+    endless.DefaultReadTimeOut = setting.ReadTimeout
+    endless.DefaultWriteTimeOut = setting.WriteTimeout
+    endless.DefaultMaxHeaderBytes = 1 << 20
+    endPoint := fmt.Sprintf(":%d", setting.HTTPPort)
+
+    server := endless.NewServer(endPoint, routers.InitRouter())
+    server.BeforeBegin = func(add string) {
+        log.Printf("Actual pid is %d", syscall.Getpid())
     }
 
-    fmt.Printf("main")
-    fmt.Printf("main2")
-    fmt.Printf("main3")
-    fmt.Printf("main4")
-    fmt.Printf("main5")
-    fmt.Printf("main6")
-    fmt.Printf("main7")
-    fmt.Printf("test")
-    fmt.Printf("test2")
-    fmt.Printf(fmt.Sprintf("\nListen: %s ...\n", addr))
-    s.ListenAndServe()
-    fmt.Printf("END\n")
+    err := server.ListenAndServe()
+    if err != nil {
+        log.Printf("Server err: %v", err)
+    }
 }
