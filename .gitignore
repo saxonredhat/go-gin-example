@@ -20,3 +20,6 @@ runtime/
 
 # Go workspace file
 go.work
+
+go-gin-example
+main
