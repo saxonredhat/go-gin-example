@@ -5,6 +5,7 @@ import (
     "github.com/gin-gonic/gin"
     "github.com/saxonredhat/go-gin-example/pkg/e"
     "github.com/saxonredhat/go-gin-example/pkg/util"
+    "github.com/saxonredhat/go-gin-example/pkg/logging"
     "github.com/saxonredhat/go-gin-example/models"
     "github.com/astaxie/beego/validation"
     _ "github.com/unknwon/com"
@@ -39,9 +40,11 @@ func GetAuth(c *gin.Context){
         code = e.INVALID_PARAMS
     }
     //返回json
+    msg := e.GetMsg(code)
+    logging.Info(fmt.Sprintf(" controller: %d %s %v", code, msg, data))
     c.JSON(http.StatusOK, gin.H{
         "code" : code,
-        "msg" : e.GetMsg(code),
+        "msg" : msg,
         "data" : data,
     })
 }

@@ -4,11 +4,14 @@ import (
     "fmt"
     "strings"
     "net/http"
-    "github.com/gin-gonic/gin"
+
     "github.com/saxonredhat/go-gin-example/models"
     "github.com/saxonredhat/go-gin-example/pkg/e"
     "github.com/saxonredhat/go-gin-example/pkg/setting"
     "github.com/saxonredhat/go-gin-example/pkg/util"
+    "github.com/saxonredhat/go-gin-example/pkg/logging"
+
+    "github.com/gin-gonic/gin"
     "github.com/astaxie/beego/validation"
     "github.com/unknwon/com"
 )
@@ -96,6 +99,8 @@ func AddArticle(c *gin.Context) {
         var errors strings.Builder
         errors.WriteString(fmt.Sprintf("%s,",e.GetMsg(code)))
         for idx, err := range valid.Errors {
+            //打印日志
+            logging.Info(" controller: %s: %s",err.Key, err.Message)
             if idx == len(valid.Errors)-1{
                 errors.WriteString(fmt.Sprintf("%s: %s。",err.Key,err.Message))
             }else{
@@ -143,10 +148,10 @@ func EditArticle(c *gin.Context) {
     //处理请求参数
     code := e.INVALID_PARAMS
     msg := ""
+    data := make(map[string]interface{})
     if ! valid.HasErrors() {
         if models.ExistArticleByID(id) {
             if models.ExistTagByID(tagIdInt){
-                data := make(map[string]interface{})
                 data["tag_id"] = tagIdInt
                 data["modified_by"] = modifiedBy
                 if title != "" {
@@ -186,10 +191,11 @@ func EditArticle(c *gin.Context) {
         msg = errors.String() 
     }
 
+    logging.Info(fmt.Sprintf(" controller: %d %s %v", code, msg, data))
     c.JSON(http.StatusOK, gin.H{
         "code" : code,
         "msg" : msg,
-        "data" : make(map[string]string),
+        "data" : data,
     })
 }
 

@@ -7,12 +7,16 @@ import (
     "github.com/saxonredhat/go-gin-example/routers/api"
     "github.com/saxonredhat/go-gin-example/routers/v1"
     "github.com/saxonredhat/go-gin-example/middleware/jwt"
+    "github.com/saxonredhat/go-gin-example/middleware/log"
+    "github.com/saxonredhat/go-gin-example/middleware/reqid"
 )
 
 func InitRouter() *gin.Engine {
     r := gin.New()
 
+    r.Use(reqid.REQID())
     r.Use(gin.Logger())
+    r.Use(log.LOG())
 
     r.Use(gin.Recovery())
 
@@ -20,6 +24,7 @@ func InitRouter() *gin.Engine {
 
     r.GET("/auth", api.GetAuth)
     apiv1 := r.Group("/api/v1")
+    //apiv1.Use(log.LOG())
     apiv1.Use(jwt.JWT())
     {
         //获取标签列表
