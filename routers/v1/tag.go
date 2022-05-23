@@ -110,7 +110,6 @@ func EditTag(c *gin.Context) {
 
     code := e.INVALID_PARAMS
     if ! valid.HasErrors() {
-        code = e.SUCCESS
         if models.ExistTagByID(id) {
             data := make(map[string]interface{})
             data["modified_by"] = modifiedBy
@@ -120,8 +119,11 @@ func EditTag(c *gin.Context) {
             if state != -1 {
                 data["state"] = state
             }
-
-            models.EditTag(id, data)
+            if models.EditTag(id, data) {
+                code = e.SUCCESS
+            }else{
+                code = e.ERROR_DML
+            }
         } else {
             code = e.ERROR_NOT_EXIST_TAG
         }

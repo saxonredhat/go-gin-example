@@ -2,8 +2,8 @@ package models
 
 import (
     "fmt"
-    "github.com/jinzhu/gorm"
-    "time"
+    _ "github.com/jinzhu/gorm"
+    _ "time"
 )
 
 type Article struct{
@@ -19,15 +19,15 @@ type Article struct{
     State int `json:"state"`
 }
 
-func (article *Article) BeforeCreate(scope *gorm.Scope) error {
-    scope.SetColumn("CreatedOn",time.Now().Unix()) 
-    return nil 
-}
+//func (article *Article) BeforeCreate(scope *gorm.Scope) error {
+//    scope.SetColumn("CreatedOn",time.Now().Unix()) 
+//    return nil 
+//}
 
-func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
-    scope.SetColumn("ModifiedOn",time.Now().Unix()) 
-    return nil 
-}
+//func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
+//    scope.SetColumn("ModifiedOn",time.Now().Unix()) 
+//   return nil 
+//}
 
 func GetArticleTotal(maps interface{})(count int){
     db.Model(&Article{}).Where(maps).Count(&count)
